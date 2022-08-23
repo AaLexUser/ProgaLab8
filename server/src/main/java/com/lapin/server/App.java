@@ -46,12 +46,7 @@ public class App {
         TCPConnection server = new TCPConnection(new ServerTCPConnection(new ServerRequestHandler(),resources));
         ServerListener serverListener = (ServerListener) server.start();
         Thread serverThread = new Thread(serverListener);
-        Client justclient = Client.class.getDeclaredConstructor(File.class, ServerListener.class).newInstance(resources,serverListener);
-        Constructor<?>[] constructors = Client.class.getConstructors();
-        for(var constuc : constructors){
-            var types = constuc.getParameterTypes();
-        }
-        Client admin = new Client(resources,serverListener);
+        Client admin = new Client(resources,serverListener, args);
         Thread adminSession = new Thread(admin);
         adminSession.start();
         serverThread.start();

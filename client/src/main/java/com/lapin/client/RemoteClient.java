@@ -1,14 +1,13 @@
 package com.lapin.client;
 
+
 import com.lapin.common.client.Client;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.lapin.common.client.gui.App;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
-import java.net.URL;
 
 public class RemoteClient {
     public static void main(String[] args) throws URISyntaxException {
@@ -17,7 +16,7 @@ public class RemoteClient {
                 .getClassLoader()
                 .getResource("config.properties")
                 .toURI());
-        Client user = new Client(resources);
+        Client user = new Client(resources, args);
         user.run();
     }
 }
