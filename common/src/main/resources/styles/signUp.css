@@ -2,6 +2,7 @@
     -fx-background-color: linear-gradient(#141e30, #243b55);
     -fx-font-family: SansSerif;
     -fx-background-image: url("/images/SignUp.jpeg");
+    -fx-background-size: 700;
 }
 .vbox{
     -fx-background-color: black;

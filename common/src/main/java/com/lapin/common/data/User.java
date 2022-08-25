@@ -11,13 +11,17 @@ public class User implements Serializable {
     private long id;
     @Getter
     @Setter
-    private String login;
+    private String username;
     @Getter
     @Setter
     private String password;
 
-    public User(String login, String password){
-        this.login = login;
+    public User(String username, String password){
+        this.username = username;
         this.password = password;
+    }
+    public User(long id, String username){
+        this.id = id;
+        this.username = username;
     }
 }

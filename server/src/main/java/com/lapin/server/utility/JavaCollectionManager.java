@@ -87,7 +87,7 @@ public class JavaCollectionManager implements CollectionManager {
     public boolean update(Integer id, Route newRoute, User user) throws RuntimeException {
         for (Route route : routeCollection) {
             if (route.getId() == id) {
-                if(route.getAuthorId() == user.getId()){
+                if(route.getAuthor().getId() == user.getId()){
                     if(dbHandler.updateRoute(id,newRoute,user) == -1){
                         throw new RuntimeException("The command ended with an error. Try again.");
                     }

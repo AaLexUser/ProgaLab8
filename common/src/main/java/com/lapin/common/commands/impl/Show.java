@@ -12,8 +12,7 @@ import com.lapin.common.commands.AbstractCommand;
 import com.lapin.network.StatusCodes;
 
 
-import java.io.Serializable;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 
 /**
@@ -32,15 +31,12 @@ public class Show extends AbstractCommand {
     @Override
     public void execute(RequestCommand rc) {
         try {
-            String response;
+            Set<Route> response;
             if (collectionManager.getRouteCollection().size() == 0) {
-                response = "Коллекция пуста.";
+                response = null;
             }
             else response = collectionManager
-                    .getRouteCollection()
-                    .stream()
-                    .map(Route::toString)
-                    .collect(Collectors.joining("\n"));
+                    .getRouteCollection();
             OutResultStack.push(StatusCodes.OK,response);
 
         } catch (RuntimeException e) {

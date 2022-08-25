@@ -2,7 +2,9 @@ package com.lapin.common.client.gui;
 
 import com.lapin.common.client.Client;
 import com.lapin.common.client.gui.controllers.SignInController;
+import com.lapin.network.StatusCodes;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,9 +29,14 @@ public class App extends Application {
         SignInController signInController =loader.getController();
         signInController.setClient(client);
         stage.setTitle("Sign In");
+        //stage.initStyle(StageStyle.TRANSPARENT);
         Image icon = new Image("/images/AppIcon.png");
         stage.getIcons().add(icon);
         scene = new Scene(root);
+        stage.setOnCloseRequest(windowEvent -> {
+            client.setStatusCode(StatusCodes.EXIT_CLIENT);
+            Platform.exit();
+        });
         scene.getStylesheets().add(getClass().getResource("/styles/signIn.css").toExternalForm());
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -38,7 +46,7 @@ public class App extends Application {
                 }
             }
         });
-        stage.setResizable (false);
+        //stage.setResizable (false);
         stage.setScene(scene);
         stage.show();
     }

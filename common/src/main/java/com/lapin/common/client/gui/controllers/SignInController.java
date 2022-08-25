@@ -12,11 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.*;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import lombok.Setter;
 
@@ -24,6 +27,9 @@ import java.io.IOException;
 
 
 public class SignInController {
+    private double xOffset;
+    private double yOffset;
+
     @Setter
     private Client client;
     @FXML
@@ -39,7 +45,7 @@ public class SignInController {
     @FXML
     private Label errorLabel;
     @FXML
-    public void signIn(ActionEvent event){
+    public void signIn(ActionEvent event) {
         Authorization auth = new Authorization(client);
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -48,9 +54,29 @@ public class SignInController {
         }
         else{
             try {
-            auth.signIn(username, password);
-            System.out.println("Success login");
-            }catch (RuntimeException e){
+                auth.signIn(username, password);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homePage.fxml"));
+                Parent root = loader.load();
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene scene = new Scene(root);
+                stage.setResizable(true);
+                root.setOnMousePressed(event1 -> {
+                    xOffset = event1.getSceneX();
+                    yOffset = event1.getSceneY();
+                    event1.consume();
+                });
+                root.setOnMouseDragged(event1 -> {
+                    stage.setX(event1.getScreenX() - xOffset);
+                    stage.setY(event1.getScreenY() - yOffset);
+                    event1.consume();
+                });
+                scene.getStylesheets().add(getClass().getResource("/styles/homePage.css").toExternalForm());
+                stage.setTitle(username.toUpperCase());
+                scene.getRoot().setEffect(new DropShadow(10, Color.rgb(100, 100, 100)));
+                scene.setFill(Color.TRANSPARENT);
+                stage.setScene(scene);
+                stage.show();
+            }catch (Exception e){
                 error(e.getMessage());
             }
         }
@@ -73,6 +99,7 @@ public class SignInController {
                 }
             }
         });
+
         stage.setTitle("Sign Up");
 
         stage.show();

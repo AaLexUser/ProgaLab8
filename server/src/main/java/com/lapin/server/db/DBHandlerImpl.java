@@ -28,16 +28,16 @@ public class DBHandlerImpl implements DBHandler {
     }
 
     public synchronized long addUser(User user) {
-        if(checkLogin(user) == -1){
+        if(checkUsername(user) == -1){
             return -1;
         }
-        else if (!(checkLogin(user) == 0)){
+        else if (!(checkUsername(user) == 0)){
             return 0;
         }
         try (Connection connection = dbConnector.connect();
              PreparedStatement addUserToTable = connection.prepareStatement(DBQuery.INSERT_USER.getQuery()))
         {
-            addUserToTable.setString(1, user.getLogin());
+            addUserToTable.setString(1, user.getUsername());
             addUserToTable.setString(2, encryptor.encrypt(user.getPassword()));
 
             ResultSet resultSet = addUserToTable.executeQuery();
@@ -52,12 +52,12 @@ public class DBHandlerImpl implements DBHandler {
         }
     }
 
-    public synchronized long checkLogin(User user){
+    public synchronized long checkUsername(User user){
         try (Connection connection = dbConnector.connect();
-             PreparedStatement checkLogin = connection.prepareStatement(DBQuery.SELECT_USER_BY_LOGIN.getQuery())
+             PreparedStatement checkUsername = connection.prepareStatement(DBQuery.SELECT_USER_BY_USERNAME.getQuery())
         ) {
-            checkLogin.setString(1, user.getLogin());
-            ResultSet resultSet = checkLogin.executeQuery();
+            checkUsername.setString(1, user.getUsername());
+            ResultSet resultSet = checkUsername.executeQuery();
             if (resultSet.next()) {
                 long userId = resultSet.getLong("id");
                 Logger.info("User with id - " + userId + " found");
@@ -99,9 +99,9 @@ public class DBHandlerImpl implements DBHandler {
 
     public synchronized long checkUser(User user) {
         try (Connection connection = dbConnector.connect();
-             PreparedStatement checkUser = connection.prepareStatement(DBQuery.SELECT_USER_BY_LOGIN_AND_PASSWORD.getQuery());
+             PreparedStatement checkUser = connection.prepareStatement(DBQuery.SELECT_USER_BY_USERNAME_AND_PASSWORD.getQuery());
         ) {
-            checkUser.setString(1, user.getLogin());
+            checkUser.setString(1, user.getUsername());
             checkUser.setString(2, encryptor.encrypt(user.getPassword()));
 
             ResultSet resultSet = checkUser.executeQuery();
@@ -145,7 +145,7 @@ public class DBHandlerImpl implements DBHandler {
                         ),
                         resultSet.getLong("distance")
                         );
-                route.setAuthorId(resultSet.getLong("author_id"));
+                route.setAuthor(new User(resultSet.getLong("author_id"), resultSet.getString("username")));
                 routes.add(route);
             }
             return routes;

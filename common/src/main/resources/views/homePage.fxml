@@ -1,34 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.DialogPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?language javascript?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <BorderPane prefHeight="720.0" prefWidth="1080.0">
-         <center>
-            <GridPane gridLinesVisible="true" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </center>
-         <top>
-            <DialogPane BorderPane.alignment="CENTER" />
-         </top>
-         <left>
-            <VBox prefHeight="664.0" prefWidth="164.0" BorderPane.alignment="CENTER" />
-         </left></BorderPane>
-   </content>
-</ScrollPane>
+<BorderPane prefHeight="720.0" prefWidth="1080.0" styleClass="shadow-pane" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lapin.common.client.gui.controllers.HomePageController">
+    <center>
+      <VBox style="-fx-background-color: transparent;" BorderPane.alignment="CENTER_RIGHT">
+         <BorderPane.margin>
+            <Insets right="8.0" />
+         </BorderPane.margin>
+         <children>
+            <SplitPane dividerPositions="0.1288300835654596" orientation="VERTICAL" prefHeight="736.0" prefWidth="1072.0">
+              <items>
+                   <VBox styleClass="background-pane">
+                       <HBox alignment="CENTER_LEFT">
+                           <padding>
+                               <Insets right="5" top="2" />
+                           </padding>
+                           <HBox alignment="CENTER_LEFT">
+                               <ImageView fitHeight="20.0" fitWidth="20.0" style="-fx-alignment: center;" styleClass="title-icon">
+                                   <Image url="@../images/AppIcon.png" />
+                               </ImageView>
+                           </HBox>
+                           <HBox alignment="CENTER_LEFT">
+                               <Label fx:id="usernameLabel" styleClass="username" />
+                           </HBox>
+                       </HBox>
+                   </VBox>
+                  <SplitPane dividerPositions="0.7163551401869159" style="-fx-background-color: transparent">
+                     <items>
+                        <VBox styleClass="background-pane">
+                           <children>
+                               <HBox alignment="CENTER">
+                                   <padding>
+                                       <Insets right="5" top="2" />
+                                   </padding>
+                                  <HBox alignment="CENTER_LEFT">
+                                      <ImageView fitHeight="20.0" fitWidth="20.0" styleClass="title-icon">
+                                          <Image url="@../images/AppIcon.png" />
+                                      </ImageView>
+                                      <Label styleClass="title-text" text="Routes" />
+                                      <HBox.margin>
+                                          <Insets right="23" />
+                                      </HBox.margin>
+                                   </HBox>
+                                   <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                        <Button fx:id="exitButton" mnemonicParsing="false" onAction="#handleExitButton" styleClass="exit-button" text="Button" />
+                                   </HBox>
+                              </HBox>
+                              <VBox>
+                                 <children>
+                                    <ScrollPane style="-fx-background-color: transparent;">
+                                       <content>
+                                          <TableView fx:id="tableRoute" onMouseClicked="#onClick" prefHeight="1178.0" prefWidth="1063.0" styleClass="table-view">
+                                            <columns>
+                                              <TableColumn fx:id="id" maxWidth="60.0" minWidth="30.0" prefWidth="30.0" style="-fx-alignment: center;" text="id" />
+                                              <TableColumn fx:id="name" prefWidth="120.0" style="-fx-alignment: center;" text="Name" />
+                                                <TableColumn editable="false" prefWidth="75.0" style="-fx-alignment: center;" text="coordinates">
+                                                   <columns>
+                                                      <TableColumn fx:id="coordinateX" prefWidth="75.0" style="-fx-alignment: center;" text="x" />
+                                                      <TableColumn fx:id="coordinateY" prefWidth="75.0" style="-fx-alignment: center;" text="y" />
+                                                   </columns>
+                                                </TableColumn>
+                                                <TableColumn fx:id="creationDate" prefWidth="93.69189453125" style="-fx-alignment: center;" text="creationDate" />
+                                                <TableColumn editable="false" prefWidth="75.0" style="-fx-alignment: center;" text="location from">
+                                                   <columns>
+                                                      <TableColumn fx:id="fromX" prefWidth="75.0" style="-fx-alignment: center;" text="x" />
+                                                      <TableColumn fx:id="fromY" prefWidth="75.0" style="-fx-alignment: center;" text="y" />
+                                                      <TableColumn fx:id="fromZ" prefWidth="75.0" style="-fx-alignment: center;" text="z" />
+                                                   </columns>
+                                                </TableColumn>
+                                                <TableColumn editable="false" prefWidth="75.0" style="-fx-alignment: center;" text="location to">
+                                                   <columns>
+                                                      <TableColumn fx:id="toX" prefWidth="75.0" style="-fx-alignment: center;" text="x" />
+                                                      <TableColumn fx:id="toY" prefWidth="75.0" style="-fx-alignment: center;" text="y" />
+                                                      <TableColumn fx:id="toName" prefWidth="75.0" style="-fx-alignment: center;" text="name" />
+                                                   </columns>
+                                                </TableColumn>
+                                                <TableColumn fx:id="distance" prefWidth="75.0" style="-fx-alignment: center;" text="distance" />
+                                                <TableColumn fx:id="author" prefWidth="75.0" style="-fx-alignment: center;" text="author" />
+                                            </columns>
+                                              <columnResizePolicy>
+                                                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                              </columnResizePolicy>
+                                          </TableView>
+                                       </content>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                          <VBox styleClass="background-pane">
+                              <ImageView fitHeight="300.0" fitWidth="300.0" styleClass="title-icon">
+                                  <Image url="@../images/AppIcon.png" />
+                              </ImageView>
+                          </VBox>
+                     </items>
+                  </SplitPane>
+              </items>
+            </SplitPane>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

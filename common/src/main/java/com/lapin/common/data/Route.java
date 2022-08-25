@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import org.jetbrains.annotations.NotNull;
-import java.util.Date;
+
 import java.util.List;
 
 /**
@@ -41,7 +41,7 @@ public class Route implements Comparable<Route>, Serializable {
     private Long distance; //Поле не может быть null, Значение поля должно быть больше 1
     @Getter
     @Setter
-    private Long authorId;
+    private User author;
     /**
      * Все поля Route в виде String
      */
@@ -92,7 +92,7 @@ public class Route implements Comparable<Route>, Serializable {
     public String toString() {
         return "id: " + id + ", name: " + name + ", " + coordinates.toString() +
                 ", creationDate: " + creationDate + ", " + from.toString() + ", " + to.toString() +
-                ", distance: " + distance + ", Author_Id: " + authorId;
+                ", distance: " + distance + ", Author: " + author.getUsername();
     }
 
     public String toStringWithoutId() {
