@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lapin.common.client.gui.controllers.AddRouteController">
+    <children>
+        <VBox alignment="CENTER_LEFT" prefHeight="54.0" prefWidth="384.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Route">
+                    <font>
+                        <Font size="32.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets left="10.0" />
+                    </VBox.margin>
+                </Text>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Route Name" wrappingWidth="114.13671875">
+                    <font>
+                        <Font name="Century Gothic" size="21.0" />
+                    </font>
+                </Text>
+                <TextField fx:id="nameFld" prefHeight="39.0" prefWidth="387.0">
+                    <font>
+                        <Font name="Century Gothic" size="20.0" />
+                    </font>
+                </TextField>
+            </children>
+            <VBox.margin>
+                <Insets top="30.0" />
+            </VBox.margin>
+        </VBox>
+      <VBox alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Coordinates" wrappingWidth="119.13671875">
+               <font>
+                  <Font name="Century Gothic" size="21.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" textAlignment="CENTER" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld31" prefHeight="39.0" prefWidth="48.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" textAlignment="CENTER" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld3" prefHeight="39.0" prefWidth="48.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="z" textAlignment="CENTER" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld4" prefHeight="39.0" prefWidth="0.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location From" wrappingWidth="132.13671875">
+               <font>
+                  <Font name="Century Gothic" size="21.0" />
+               </font>
+            </Text>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld6" prefHeight="39.0" prefWidth="0.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld61" prefHeight="39.0" prefWidth="27.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="z" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld62" prefHeight="39.0" prefWidth="37.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location To" wrappingWidth="110.13671875">
+               <font>
+                  <Font name="Century Gothic" size="21.0" />
+               </font>
+            </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld623" prefHeight="25.0" prefWidth="358.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="x" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld621" prefHeight="25.0" prefWidth="358.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="y" wrappingWidth="102.13671875">
+                           <font>
+                              <Font name="Century Gothic" size="21.0" />
+                           </font>
+                        </Text>
+                        <TextField fx:id="nameFld622" prefHeight="25.0" prefWidth="358.0">
+                           <font>
+                              <Font name="Century Gothic" size="20.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="distance" wrappingWidth="102.13671875">
+               <font>
+                  <Font name="Century Gothic" size="21.0" />
+               </font>
+            </Text>
+            <TextField fx:id="nameFld6231" prefHeight="25.0" prefWidth="358.0">
+               <font>
+                  <Font name="Century Gothic" size="20.0" />
+               </font>
+            </TextField>
+         </children>
+      </VBox>
+    </children>
+</VBox>

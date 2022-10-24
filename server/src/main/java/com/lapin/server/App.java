@@ -5,6 +5,7 @@ import com.lapin.common.client.Client;
 import com.lapin.common.controllers.*;
 import com.lapin.common.encrypt.Encryptor;
 import com.lapin.common.encrypt.SHA256Encryptor;
+import com.lapin.di.context.AbstractBean;
 import com.lapin.di.context.ApplicationContext;
 import com.lapin.di.factory.BeanFactory;
 import com.lapin.network.TCPConnection;
@@ -46,7 +47,9 @@ public class App {
         TCPConnection server = new TCPConnection(new ServerTCPConnection(new ServerRequestHandler(),resources));
         ServerListener serverListener = (ServerListener) server.start();
         Thread serverThread = new Thread(serverListener);
-        Client admin = new Client(resources,serverListener, args);
+        Client admin = (Client) ApplicationContext.getInstance()
+                .getBean(new AbstractBean<>(Client.class)
+                        .setParameterTypes(File.class, ServerListener.class, String[].class).setInitargs(resources,serverListener, args));
         Thread adminSession = new Thread(admin);
         adminSession.start();
         serverThread.start();

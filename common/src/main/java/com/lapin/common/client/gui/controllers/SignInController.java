@@ -2,6 +2,8 @@ package com.lapin.common.client.gui.controllers;
 
 import com.lapin.common.client.Client;
 import com.lapin.common.client.clientpostprocessor.Authorization;
+import com.lapin.common.controllers.CommandManager;
+import com.lapin.di.context.ApplicationContext;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -26,12 +28,12 @@ import lombok.Setter;
 import java.io.IOException;
 
 
-public class SignInController {
+public class SignInController extends AbstractController {
     private double xOffset;
     private double yOffset;
 
     @Setter
-    private Client client;
+    private Client client = ApplicationContext.getInstance().getBean(Client.class);
     @FXML
     private TextField usernameField;
     @FXML
@@ -55,27 +57,25 @@ public class SignInController {
         else{
             try {
                 auth.signIn(username, password);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/homePage.fxml"));
-                Parent root = loader.load();
-                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setResizable(true);
-                root.setOnMousePressed(event1 -> {
-                    xOffset = event1.getSceneX();
-                    yOffset = event1.getSceneY();
-                    event1.consume();
-                });
-                root.setOnMouseDragged(event1 -> {
-                    stage.setX(event1.getScreenX() - xOffset);
-                    stage.setY(event1.getScreenY() - yOffset);
-                    event1.consume();
-                });
-                scene.getStylesheets().add(getClass().getResource("/styles/homePage.css").toExternalForm());
-                stage.setTitle(username.toUpperCase());
+                AbstractController abstractController = switchScene(event,"/views/homePage.fxml",aClass -> new HomePageController())
+                        .setStylesheets("/styles/homePage.css")
+                        .setStageTitle(username.toUpperCase());
+                HomePageController homePage = abstractController.getLoader().getController();
+                homePage.initSize();
+                Scene scene = homePage.getCurrentScene();
+//                root.setOnMousePressed(event1 -> {
+//                    xOffset = event1.getSceneX();
+//                    yOffset = event1.getSceneY();
+//                    event1.consume();
+//                });
+//                root.setOnMouseDragged(event1 -> {
+//                    stage.setX(event1.getScreenX() - xOffset);
+//                    stage.setY(event1.getScreenY() - yOffset);
+//                    event1.consume();
+//                });
                 scene.getRoot().setEffect(new DropShadow(10, Color.rgb(100, 100, 100)));
                 scene.setFill(Color.TRANSPARENT);
-                stage.setScene(scene);
-                stage.show();
+                showStage();
             }catch (Exception e){
                 error(e.getMessage());
             }

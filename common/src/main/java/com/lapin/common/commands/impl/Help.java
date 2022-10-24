@@ -8,6 +8,7 @@ import com.lapin.common.utility.OutResultStack;
 import com.lapin.di.annotation.ClassMeta;
 import com.lapin.common.commands.AbstractCommand;
 import com.lapin.common.commands.Command;
+import com.lapin.di.context.AbstractBean;
 import com.lapin.network.AccessType;
 import com.lapin.di.context.ApplicationContext;
 import com.lapin.network.StatusCodes;
@@ -41,7 +42,7 @@ public class Help extends AbstractCommand {
                     .stream()
                     .filter(clazz -> {
                         Object obj = null;
-                        obj = ApplicationContext.getInstance().getBean(clazz,true,false);
+                        obj = ApplicationContext.getInstance().getBean(new AbstractBean<>(clazz),true,false);
                         Command command = (Command) (obj instanceof Command ? obj : null);
                         try {
                             Field accessTypeField = clazz.getSuperclass().getDeclaredField("accessType");

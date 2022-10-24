@@ -20,25 +20,25 @@ import java.util.List;
 public class Route implements Comparable<Route>, Serializable {
     @Getter
     @Setter
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private int id; //This field's value must be greater than 0, This field's value must be unique, This field's value must be generated automatically
     @Getter
     @NotNull
-    private String name; //Поле не может быть null, Строка не может быть пустой
+    private String name; //This field can't be null, The string can't be empty
     @Getter
     @NotNull
-    private Coordinates coordinates; //Поле не может быть null
+    private Coordinates coordinates; //This field can't be null
     @Getter
     @NotNull
-    private LocalDate creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private LocalDate creationDate; //This field can't be null, This field's value must be generated automatically
     @Getter
     @NotNull
-    private LocationFrom from; //Поле не может быть null
+    private LocationFrom from; //This field can't be null
     @Getter
     @NotNull
-    private LocationTo to; //Поле не может быть null
+    private LocationTo to; //This field can't be null
     @Getter
     @NotNull
-    private Long distance; //Поле не может быть null, Значение поля должно быть больше 1
+    private Long distance; //This field can't be null, This field's value must be greater than 1
     @Getter
     @Setter
     private User author;
@@ -108,7 +108,7 @@ public class Route implements Comparable<Route>, Serializable {
     }
 
     /**
-     * Класс для сравнения элементов Route по дистанции
+     * Class for comparison of Route elements by distance
      */
     public static class ComparatorByDistance implements Comparator<Route> {
         @Override
@@ -118,7 +118,7 @@ public class Route implements Comparable<Route>, Serializable {
     }
 
     /**
-     * Класc для сравнения элементов Route по дате создания
+     * Class for comparison of Route elements by creation date
      */
     public static class ComparatorByCreationDate implements Comparator<Route> {
         @Override

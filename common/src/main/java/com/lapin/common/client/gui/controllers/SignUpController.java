@@ -2,6 +2,8 @@ package com.lapin.common.client.gui.controllers;
 
 import com.lapin.common.client.Client;
 import com.lapin.common.client.clientpostprocessor.Authorization;
+import com.lapin.common.controllers.CommandManager;
+import com.lapin.di.context.ApplicationContext;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,9 +26,9 @@ import lombok.Setter;
 
 import java.io.IOException;
 
-public class SignUpController {
+public class SignUpController extends AbstractController {
     @Setter
-    private Client client;
+    private Client client = ApplicationContext.getInstance().getBean(CommandManager.class).getClient();
     @FXML
     private TextField usernameField;
     @FXML
@@ -41,24 +43,18 @@ public class SignUpController {
     private Label errorLabel;
     @FXML
     private void signIn(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/signIn.fxml"));
-        Parent root = loader.load();
-        SignInController signInController = loader.getController();
-        signInController.setClient(client);
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        scene.getStylesheets().add(getClass().getResource("/styles/signIn.css").toExternalForm());
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.ENTER){
-                    signInController.signIn(null);
-                }
-            }
-        });
-        stage.setTitle("Sign In");
-        stage.show();
+        Scene scene = switchScene(event, "/views/signIn.fxml",aClass -> new SignInController())
+                .setStylesheets("/styles/signIn.css")
+                .setStageTitle("Sign In").getCurrentScene();
+//        getCurrentScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if(event.getCode() == KeyCode.ENTER){
+//                    signInController.signIn(null);
+//                }
+//            }
+//        });
+        showStage();
     }
     @FXML
     public void signUp(ActionEvent event){

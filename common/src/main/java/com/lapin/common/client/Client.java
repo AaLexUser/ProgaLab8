@@ -4,6 +4,7 @@ import com.lapin.common.client.gui.App;
 import com.lapin.common.controllers.*;
 import com.lapin.common.data.User;
 import com.lapin.common.utility.*;
+import com.lapin.di.annotation.Inject;
 import com.lapin.di.context.ApplicationContext;
 import com.lapin.di.factory.BeanFactory;
 import com.lapin.network.ClientType;
@@ -29,6 +30,8 @@ public class Client implements Runnable{
     private User user;
     private final HistoryQueue historyQueue;
     private ServerListener serverListener;
+    @Inject
+    private CommandManager commandManager;
     private final String[] initialArgs;
     private Properties properties;
     private File resources;
@@ -52,9 +55,6 @@ public class Client implements Runnable{
         }else clientType = ClientType.REMOTE;
     }
     public void run() {
-        BeanFactory beanFactory = new BeanFactory(ApplicationContext.getInstance());
-        ApplicationContext.getInstance().setBeanFactory(beanFactory);
-        CommandManager commandManager = ApplicationContext.getInstance().getBean(CommandManager.class);
         if (clientType.equals(ClientType.REMOTE)) {
             TCPConnection session = new TCPConnection(new ClientTCPConnection(resources));
             ClientListener listener = (ClientListener) session.start();
@@ -62,7 +62,6 @@ public class Client implements Runnable{
             commandManager.setClientIO(client_io);
         }
         commandManager.setClient(this);
-        App.setClient(this);
         App.main(initialArgs);
     }
     public void setStatusCode(StatusCodes sc){

@@ -6,6 +6,7 @@ import com.lapin.di.config.Configuration;
 import com.lapin.di.config.JavaConfiguration;
 import com.lapin.di.configurator.BeanConfigurator;
 import com.lapin.di.configurator.JavaBeanConfigurator;
+import com.lapin.di.context.AbstractBean;
 import com.lapin.di.context.ApplicationContext;
 import lombok.Getter;
 
@@ -28,8 +29,8 @@ public class BeanFactory {
         this.applicationContext = applicationContext;
     }
 
-    public <T> T getBean(Class<T> clazz) {
-        Class<? extends T> implementationClass = clazz;
+    public <T> T getBean(AbstractBean<T> abstractBean) {
+        Class<? extends T> implementationClass = abstractBean.getClazz();
         if (implementationClass.isInterface()) {
             try {
                 implementationClass = beanConfigurator.getImplementationClass(implementationClass);
@@ -39,7 +40,7 @@ public class BeanFactory {
         }
         T bean = null;
         try {
-            bean = implementationClass.getDeclaredConstructor().newInstance();
+            bean = implementationClass.getDeclaredConstructor(abstractBean.getParameterTypes()).newInstance(abstractBean.getInitargs());
         } catch (InstantiationException e) {
             System.err.println("Не удалось создать экземпляр");
         } catch (IllegalAccessException e) {
@@ -63,5 +64,4 @@ public class BeanFactory {
     public Class<?> getClassByClassName(String className) throws Exception {
         return beanConfigurator.getImplementationClass(className);
     }
-
 }

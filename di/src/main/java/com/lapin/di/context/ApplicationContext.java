@@ -30,15 +30,17 @@ public class ApplicationContext {
     public static ApplicationContext getInstance() {
         return APPLICATION_CONTEXT;
     }
-    public <T> T getBean(Class<T> clazz){
-        return getBean(clazz, singleton,true);
+    public <T> T getBean(AbstractBean<T> abstractBean){
+        return getBean(abstractBean, singleton,true);
     }
-
-    public <T> T getBean(Class<T> clazz, boolean singleton, boolean postprocessor) {
-        if (beanMap.containsKey(clazz)) {
-            Inject inject = clazz.getAnnotation(Inject.class);
+    public <T> T getBean(Class<T> clazz) {
+        return getBean(new AbstractBean<>(clazz));
+    }
+    public <T> T getBean(AbstractBean<T> abstractBean, boolean singleton, boolean postprocessor) {
+        if (beanMap.containsKey(abstractBean.getClazz())) {
+            Inject inject = abstractBean.getClazz().getAnnotation(Inject.class);
             if (singleton || (inject != null && !inject.singleton())) {
-                T bean = (T) beanMap.get(clazz);
+                T bean = (T) beanMap.get(abstractBean.getClazz());
                 if(postprocessor) {
                     callPostProcessor(bean);
                 }
@@ -47,18 +49,18 @@ public class ApplicationContext {
 
 
         }
-        T bean = beanFactory.getBean(clazz);
+        T bean = beanFactory.getBean(abstractBean);
         if(postprocessor) {
             callPostProcessor(bean);
         }
 
-        beanMap.put(clazz, bean);
+        beanMap.put(abstractBean.getClazz(), bean);
         return bean;
     }
 
-    public <T> T getBean(Class<T> clazz, boolean singleton) {
+    public <T> T getBean(AbstractBean<T> abstractBean, boolean singleton) {
         this.singleton = singleton;
-        T bean = getBean(clazz);
+        T bean = getBean(abstractBean);
         this.singleton = true;
         return bean;
     }
